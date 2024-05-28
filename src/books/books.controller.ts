@@ -13,6 +13,7 @@ import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { ThrottlerGuard } from '@nestjs/throttler';
 
 @Controller('books')
 export class BooksController {
@@ -25,6 +26,7 @@ export class BooksController {
   }
 
   @Get()
+  @UseGuards(ThrottlerGuard)
   findAll() {
     return this.booksService.findAll();
   }

@@ -11,9 +11,17 @@ import { Borrower } from './entities/borrower.entity';
 import { Borrowing } from './entities/borrowing.entity';
 import { Book } from './entities/book.entity';
 import { AuthModule } from './auth/auth.module';
+import { ReportModule } from './report/report.module';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 10,
+      },
+    ]),
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -29,6 +37,7 @@ import { AuthModule } from './auth/auth.module';
     BorrowersModule,
     BorrowingsModule,
     AuthModule,
+    ReportModule,
   ],
   controllers: [AppController],
   providers: [AppService],

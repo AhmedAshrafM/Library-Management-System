@@ -10,12 +10,14 @@ import {
 import { BorrowingsService } from './borrowings.service';
 import { CreateBorrowingDto } from './dto/create-borrowing.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { ThrottlerGuard } from '@nestjs/throttler';
 
 @Controller('borrowings')
 export class BorrowingsController {
   constructor(private readonly borrowingsService: BorrowingsService) {}
 
   @Post()
+  @UseGuards(ThrottlerGuard)
   create(@Body() createBorrowingDto: CreateBorrowingDto) {
     return this.borrowingsService.create(createBorrowingDto);
   }
