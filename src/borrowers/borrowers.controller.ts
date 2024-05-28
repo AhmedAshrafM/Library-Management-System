@@ -12,7 +12,9 @@ import { BorrowersService } from './borrowers.service';
 import { CreateBorrowerDto } from './dto/create-borrower.dto';
 import { UpdateBorrowerDto } from './dto/update-borrower.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Borrowers')
 @Controller('borrowers')
 export class BorrowersController {
   constructor(private readonly borrowersService: BorrowersService) {}
