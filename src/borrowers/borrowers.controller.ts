@@ -12,7 +12,7 @@ import { BorrowersService } from './borrowers.service';
 import { CreateBorrowerDto } from './dto/create-borrower.dto';
 import { UpdateBorrowerDto } from './dto/update-borrower.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Borrowers')
 @Controller('borrowers')
@@ -21,24 +21,28 @@ export class BorrowersController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   create(@Body() createBorrowerDto: CreateBorrowerDto) {
     return this.borrowersService.create(createBorrowerDto);
   }
 
   @Get()
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   findAll() {
     return this.borrowersService.findAll();
   }
 
   @Get(':id')
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   findOne(@Param('id') id: number) {
     return this.borrowersService.findOne(id);
   }
 
   @Put(':id')
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   update(
     @Param('id') id: number,
     @Body() updateBorrowerDto: UpdateBorrowerDto,
@@ -48,6 +52,7 @@ export class BorrowersController {
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   remove(@Param('id') id: number) {
     return this.borrowersService.remove(id);
   }

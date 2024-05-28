@@ -16,11 +16,11 @@ async function bootstrap() {
     )
     .setVersion('1.0')
     .addBearerAuth()
+    .addTag('Auth')
     .addTag('Books')
     .addTag('Borrowers')
     .addTag('Borrowings')
     .addTag('Reports')
-    .addTag('Auth')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
