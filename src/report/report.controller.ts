@@ -1,7 +1,7 @@
 import { Controller, Get, Query, Res, UseGuards } from '@nestjs/common';
 import { ReportService } from './report.service';
 import { Response } from 'express';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('Reports')
@@ -11,6 +11,9 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 export class ReportController {
   constructor(private readonly reportsService: ReportService) {}
 
+  @ApiOperation({
+    summary: 'Generate Borrowing Report with start and end date',
+  })
   @Get('/borrowing')
   async generateBorrowingReport(
     @Query('startDate') startDate: Date,
@@ -29,6 +32,9 @@ export class ReportController {
     response.send(reportBuffer);
   }
 
+  @ApiOperation({
+    summary: 'Generate overdue report',
+  })
   @Get('/overdue')
   async exportOverdueBorrows(@Res() response: Response): Promise<void> {
     const reportBuffer = await this.reportsService.exportOverdueBorrows();
@@ -40,6 +46,9 @@ export class ReportController {
     response.send(reportBuffer);
   }
 
+  @ApiOperation({
+    summary: 'Generate report for all borrowing process for the past month',
+  })
   @Get('/all')
   async exportAllBorrowingProcessesLastMonth(
     @Res() response: Response,
