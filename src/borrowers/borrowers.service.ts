@@ -12,20 +12,24 @@ export class BorrowersService {
     private borrowersRepository: Repository<Borrower>,
   ) {}
 
-  create(createBorrowerDto: CreateBorrowerDto): Promise<Borrower> {
+  async create(createBorrowerDto: CreateBorrowerDto): Promise<Borrower> {
     const borrower = this.borrowersRepository.create({
       ...createBorrowerDto,
       registered_date: new Date(),
     });
-    return this.borrowersRepository.save(borrower);
+    return await this.borrowersRepository.save(borrower);
   }
 
-  findAll(): Promise<Borrower[]> {
-    return this.borrowersRepository.find();
+  async findAll(): Promise<Borrower[]> {
+    return await this.borrowersRepository.find();
   }
 
-  findOne(id: number): Promise<Borrower> {
-    return this.borrowersRepository.findOneBy({ id });
+  async findOne(id: number): Promise<Borrower> {
+    const borrower = await this.borrowersRepository.findOneBy({ id });
+    if (!borrower) {
+      throw new NotFoundException('Borrower not found');
+    }
+    return borrower;
   }
 
   async update(
@@ -33,9 +37,6 @@ export class BorrowersService {
     updateBorrowerDto: UpdateBorrowerDto,
   ): Promise<Borrower> {
     const borrower = await this.findOne(id);
-    if (!borrower) {
-      throw new NotFoundException('Borrower not found');
-    }
     Object.assign(borrower, updateBorrowerDto);
     return this.borrowersRepository.save(borrower);
   }

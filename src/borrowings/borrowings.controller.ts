@@ -30,8 +30,8 @@ export class BorrowingsController {
 
   @Get('check/:id')
   @UseGuards(JwtAuthGuard)
-  findByBorrower(@Param('borrowerId') borrowerId: number) {
-    return this.borrowingsService.findByBorrower(borrowerId);
+  findByBorrower(@Param('id') id: number) {
+    return this.borrowingsService.findByBorrower(id);
   }
 
   @Put('return/:bookId/:borrowerId')

@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
+  // Created 2 hard coded users with this credentials to allow basic jwt auth
   private readonly users = [
     { username: 'admin', password: 'admin' },
     { username: 'admin2', password: 'password2' },

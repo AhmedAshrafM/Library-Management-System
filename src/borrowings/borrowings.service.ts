@@ -30,7 +30,7 @@ export class BorrowingsService {
     }
 
     if (book.quantity < 1) {
-      throw new Error('Book not available');
+      throw new NotFoundException('Book not available');
     }
 
     book.quantity -= 1;
@@ -53,7 +53,7 @@ export class BorrowingsService {
   }
 
   async findByBorrower(borrowerId: number): Promise<Borrowing[]> {
-    return this.borrowingsRepository.find({
+    return await this.borrowingsRepository.find({
       where: {
         borrower: { id: borrowerId },
       },
@@ -83,9 +83,9 @@ export class BorrowingsService {
     return this.borrowingsRepository.save(borrowing);
   }
 
-  findOverdue(): Promise<Borrowing[]> {
+  async findOverdue(): Promise<Borrowing[]> {
     const now = new Date();
-    return this.borrowingsRepository.find({
+    return await this.borrowingsRepository.find({
       where: {
         due_date: LessThan(now),
         return_date: IsNull(),

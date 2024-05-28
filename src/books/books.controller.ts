@@ -32,6 +32,7 @@ export class BooksController {
   }
 
   @Get('search')
+  @UseGuards(ThrottlerGuard)
   search(
     @Query('title') title: string,
     @Query('author') author: string,

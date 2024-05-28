@@ -21,6 +21,7 @@ export class BooksService {
     return await this.booksRepository.find();
   }
 
+  // I can implement a better search with different techniques but i am just keeping it simple as told
   async search(title: string, author: string, isbn: string): Promise<Book[]> {
     return await this.booksRepository.find({
       where: [{ title }, { author }, { isbn }],

@@ -31,22 +31,22 @@ export class BorrowersController {
 
   @Get(':id')
   @UseGuards(JwtAuthGuard)
-  findOne(@Param('id') id: string) {
-    return this.borrowersService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.borrowersService.findOne(id);
   }
 
   @Put(':id')
   @UseGuards(JwtAuthGuard)
   update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() updateBorrowerDto: UpdateBorrowerDto,
   ) {
-    return this.borrowersService.update(+id, updateBorrowerDto);
+    return this.borrowersService.update(id, updateBorrowerDto);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
-  remove(@Param('id') id: string) {
-    return this.borrowersService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.borrowersService.remove(id);
   }
 }
