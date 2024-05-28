@@ -10,6 +10,8 @@ Simple library management system to manage books and borrowers with NodeJs, MySQ
 - [API Endpoints](#api-endpoints)
 - [Swagger](#swagger)
 - [Authentication](#authentication)
+- [Datebase](#database)
+- [Improvement](#improvement)
 
 
 
@@ -83,3 +85,30 @@ Swagger UI is available at: [http://localhost:3000/api/](http://localhost:3000/a
 I implemented 2 hard coded users for basic auth you can use them to test the protected endpoints.
 
 - `username: admin password: admin`
+## Database
+
+Creating the tables isn't necessary as the ORM will take care of them once you run the app.
+
+```bash
+$ CREATE DATABASE  IF NOT EXISTS library
+```
+After the ORM creates the the tables you can index title, author and isbn to optimize searching
+
+```bash
+$ CREATE INDEX idx_title ON books (title);
+$ CREATE INDEX idx_author ON books (author);
+$ CREATE INDEX idx_isbn ON books (isbn);
+
+```
+![Db Schema](db-diagram.jpg)
+
+## Improvement
+
+This api can be improved by: 
+
+- Using Redis for caching.
+- Implementing some pagination in certain endpoints.
+- Implementing a full authnetication model with real users not hard coded ones.
+- Designing microservices for different functionalities such as the book and the borrower and implementing
+a message broker like RabbitMQ for async communication between them to scale better.
+
