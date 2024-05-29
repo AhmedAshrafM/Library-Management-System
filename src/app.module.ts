@@ -19,7 +19,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
     ThrottlerModule.forRoot([
       {
         ttl: 60000,
-        limit: 10,
+        limit: 10, // 10 Requests in 1 min on protected endpoints so it can be tested
       },
     ]),
     ConfigModule.forRoot(),
